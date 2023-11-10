@@ -1,0 +1,3 @@
+# Install with 
+# pip install -r requirements-typings.txt --target typings --upgrade --no-user
+micropython-rp2-stubs

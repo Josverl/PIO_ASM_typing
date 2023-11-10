@@ -4,6 +4,13 @@ import array, time
 from machine import Pin
 import rp2
 
+# -----------------------------------------------
+# add type hints for the rp2.PIO Instructions
+from typing_extensions import TYPE_CHECKING # type: ignore
+if TYPE_CHECKING:
+    from rp2.asm_pio import *
+# -----------------------------------------------
+
 # Configure the number of WS2812 LEDs.
 NUM_LEDS = 16
 PIN_NUM = 6

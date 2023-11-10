@@ -6,9 +6,9 @@
         "reportMissingModuleSource": "none"
     },
     "python.analysis.typeshedPaths": [
-        ".vscode\\Pico-W-Stub"
+        "typings"
     ],
     "python.analysis.extraPaths": [
-        ".vscode\\Pico-W-Stub"
+        "typings"
     ]
 }

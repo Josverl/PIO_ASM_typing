@@ -1,3 +1,4 @@
+from typing import Any, Callable, ParamSpec, TypeVar
 from _rp2 import *
 from _typeshed import Incomplete
 
@@ -40,7 +41,12 @@ class PIOASMEmit:
     def start_pass(self, pass_) -> None: ...
     def __getitem__(self, key): ...
     def delay(self, delay): ...
-    def side(self, value): ...
+    def side(self, value): 
+        """\
+            This is a modifier which can be applied to any instruction, and is used to control side-set pin values.
+        value: the value (bits) to output on the side-set pins
+        """
+        ...
     def wrap_target(self) -> None: ...
     def wrap(self) -> None: ...
     def label(self, label) -> None: ...
@@ -58,7 +64,39 @@ class PIOASMEmit:
 
 _pio_funcs: Incomplete
 
-def asm_pio(**kw): ...
+T = TypeVar('T')
+P = ParamSpec('P')
+
+# def add_logging(f: Callable[P, T]) -> Callable[P, T]:
+# # Complex but better
+#     '''A type-safe decorator to add logging to a function.'''
+#     def inner(*args: P.args, **kwargs: P.kwargs) -> T:
+#         logging.info(f'{f.__name__} was called')
+#         return f(*args, **kwargs)
+#     return inner
+# def asm_pio(func: Callable[P, T]) -> Callable[P, T]:
+def asm_pio(**kwargs) -> Callable[..., PIOASMEmit]:
+    """Assemble a PIO program.
+    The following parameters control the initial state of the GPIO pins, as one of PIO.IN_LOW, PIO.IN_HIGH, PIO.OUT_LOW or PIO.OUT_HIGH. 
+    If the program uses more than one pin, provide a tuple, e.g. out_init=(PIO.OUT_LOW, PIO.OUT_LOW).
+
+        out_init configures the pins used for out() instructions.
+        set_init configures the pins used for set() instructions. There can be at most 5.
+        sideset_init configures the pins used side-setting. There can be at most 5.
+
+    The following parameters are used by default, but can be overridden in StateMachine.init():
+    in_shiftdir is the default direction the ISR will shift, either PIO.SHIFT_LEFT or PIO.SHIFT_RIGHT.
+        out_shiftdir is the default direction the OSR will shift, either PIO.SHIFT_LEFT or PIO.SHIFT_RIGHT.
+        push_thresh is the threshold in bits before auto-push or conditional re-pushing is triggered.
+        pull_thresh is the threshold in bits before auto-pull or conditional re-pulling is triggered.
+
+    The remaining parameters are:
+        autopush configures whether auto-push is enabled.
+        autopull configures whether auto-pull is enabled.
+    fifo_join configures whether the 4-word TX and RX FIFOs should be combined into a single 8-word FIFO for one direction only. The options are PIO.JOIN_NONE, PIO.JOIN_RX and PIO.JOIN_TX.
+"""
+    ...
+
 def asm_pio_encode(instr, sideset_count, sideset_opt: bool = ...): ...
 
 # from .asm_pio import *

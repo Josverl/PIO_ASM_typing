@@ -1,5 +1,5 @@
 from typing import Optional
-from typing_extensions import TYPE_CHECKING
+from typing_extensions import TYPE_CHECKING # type: ignore
 from _typeshed import Incomplete
 
 # source for most docstrings are taken from :

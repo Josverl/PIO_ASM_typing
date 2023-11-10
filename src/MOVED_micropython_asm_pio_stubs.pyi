@@ -6,6 +6,9 @@ from _typeshed import Incomplete
 # raspberry-pi-pico-python-sdk.pdf -https://datasheets.raspberrypi.org/pico/raspberry-pi-pico-python-sdk.pdf
 # raspberry-pi-pico-c-sdk.pdf - https://datasheets.raspberrypi.org/pico/raspberry-pi-pico-c-sdk.pdf
 
+# Simpler - clearer 
+# ref : https://dernulleffekt.de/doku.php?id=raspberrypipico:pico_pio
+
 
 if TYPE_CHECKING:
     # defined functions are all methods of the (frozen) class PIOASMEmit:

@@ -1,11 +1,14 @@
 # Example of using PIO for PWM, and fading the brightness of an LED
 
-from machine import Pin
-from rp2 import PIO, StateMachine, asm_pio
 from time import sleep
 
+from machine import Pin
+from rp2 import PIO, StateMachine, asm_pio
+
+# -----------------------------------------------
 # add type hints for the rp2.PIO Instructions
-from typing_extensions import TYPE_CHECKING # type: ignore
+from typing_extensions import TYPE_CHECKING  # type: ignore
+
 if TYPE_CHECKING:
     from rp2.asm_pio import *
 # -----------------------------------------------

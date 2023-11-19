@@ -2,6 +2,7 @@ import time
 import rp2
 from machine import Pin
 
+# -----------------------------------------------
 # add type hints for the rp2.PIO Instructions
 from typing_extensions import TYPE_CHECKING # type: ignore
 if TYPE_CHECKING:

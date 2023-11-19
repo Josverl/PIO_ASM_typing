@@ -1,10 +1,11 @@
-from machine import Pin
 import rp2
-
+from machine import Pin
 from rp2 import PIO, StateMachine, asm_pio
 
+# -----------------------------------------------
 # add type hints for the rp2.PIO Instructions
-from typing_extensions import TYPE_CHECKING # type: ignore
+from typing_extensions import TYPE_CHECKING  # type: ignore
+
 if TYPE_CHECKING:
     from rp2.asm_pio import *
 # -----------------------------------------------

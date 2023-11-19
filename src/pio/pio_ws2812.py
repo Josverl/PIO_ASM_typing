@@ -1,11 +1,15 @@
 # Example using PIO to drive a set of WS2812 LEDs.
 
-import array, time
-from machine import Pin
-import rp2
+import array
+import time
 
+import rp2
+from machine import Pin
+
+# -----------------------------------------------
 # add type hints for the rp2.PIO Instructions
-from typing_extensions import TYPE_CHECKING # type: ignore
+from typing_extensions import TYPE_CHECKING  # type: ignore
+
 if TYPE_CHECKING:
     from rp2.asm_pio import *
 # -----------------------------------------------

@@ -9,11 +9,14 @@
 #   - instantiating 2x StateMachine's with the same program and different pins
 
 import time
-from machine import Pin
-import rp2
 
+import rp2
+from machine import Pin
+
+# -----------------------------------------------
 # add type hints for the rp2.PIO Instructions
-from typing_extensions import TYPE_CHECKING # type: ignore
+from typing_extensions import TYPE_CHECKING  # type: ignore
+
 if TYPE_CHECKING:
     from rp2.asm_pio import *
 # -----------------------------------------------

@@ -2,10 +2,13 @@
 Creates a simple PIO to shift bits from the PIO FIFO to the onboard LED (pico board - pin 25). 
 DMA is used to copy data from a bytearray to the PIO output buffer at a rate determined by the PIO clock.
 """
-from typing_extensions import TYPE_CHECKING # type: ignore
+# -----------------------------------------------
+# add type hints for the rp2.PIO Instructions
+from typing_extensions import TYPE_CHECKING  # type: ignore
+
 if TYPE_CHECKING:
     from rp2.asm_pio import *
-
+# -----------------------------------------------
 import uctypes
 from dma import DMA
 from machine import Pin

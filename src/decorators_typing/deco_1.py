@@ -1,4 +1,8 @@
-
+#type: ignore
+"""
+Test to see if / how the decorator internal functions are seen/used by the type-checking tools
+Answer: they are not seen :-( 
+"""
 class PIOASMEmit:
     def __init__(self) -> None:
         self.labels = {}

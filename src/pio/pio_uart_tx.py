@@ -7,8 +7,10 @@ UART_BAUD = 115200
 PIN_BASE = 10
 NUM_UARTS = 8
 
+# -----------------------------------------------
 # add type hints for the rp2.PIO Instructions
-from typing_extensions import TYPE_CHECKING # type: ignore
+from typing_extensions import TYPE_CHECKING  # type: ignore
+
 if TYPE_CHECKING:
     from rp2.asm_pio import *
 # -----------------------------------------------

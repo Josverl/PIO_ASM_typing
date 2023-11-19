@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: micropython-rp2-stubs
-Version: 1.20.0.post3
+Version: 1.21.0.post1
 Summary: MicroPython stubs
 Home-page: https://github.com/josverl/micropython-stubs#micropython-stubs
 License: MIT
@@ -55,13 +55,13 @@ For an overview of  Micropython Stubs please see: https://micropython-stubs.read
  * List of all stubs : https://micropython-stubs.readthedocs.io/en/main/firmware_grp.html
 
 Included stubs:
-* Merged stubs from `stubs/micropython-v1_20_0-rp2-merged`
-* Frozen stubs from `stubs/micropython-v1_20_0-frozen/rp2/GENERIC`
+* Merged stubs from `stubs/micropython-v1_21_0-rp2-RPI_PICO-merged`
+* Frozen stubs from `stubs/micropython-v1_21_0-frozen/rp2/GENERIC`
 * Core stubs from `stubs/micropython-core`
 
 
 origin | Family | Port | Board | Version
 -------|--------|------|-------|--------
-Documentation | micropython | - | - | v1.20.0 
-Core | micropython | rp2 | - | v1.20.0 
+Documentation | micropython | - | - | v1.21.0 
+Core | micropython | rp2 | - | v1.21.0 
 

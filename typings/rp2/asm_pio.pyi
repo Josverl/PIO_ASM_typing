@@ -1,14 +1,20 @@
+"""
+This module provides type hints for the `rp2.asm_pio` module in the Raspberry Pi Pico Python SDK.
+It includes definitions for constants, functions, and directives used in PIO assembly programming.
+
+The module includes docstrings for each function and directive, providing information on their usage and parameters.
+
+Note: This module is intended for use with type checking and does not contain actual implementations of the functions.
+
+For more information on PIO assembly programming and the Raspberry Pi Pico Python SDK, refer to the following documents:
+- raspberry-pi-pico-python-sdk.pdf: https://datasheets.raspberrypi.org/pico/raspberry-pi-pico-python-sdk.pdf
+- raspberry-pi-pico-c-sdk.pdf: https://datasheets.raspberrypi.org/pico/raspberry-pi-pico-c-sdk.pdf
+
+For a simpler and clearer reference on PIO assembly, you can also visit: https://dernulleffekt.de/doku.php?id=raspberrypipico:pico_pio
+"""
 from typing import Optional
 from typing_extensions import TYPE_CHECKING # type: ignore
 from _typeshed import Incomplete
-
-# source for most docstrings are taken from :
-# raspberry-pi-pico-python-sdk.pdf -https://datasheets.raspberrypi.org/pico/raspberry-pi-pico-python-sdk.pdf
-# raspberry-pi-pico-c-sdk.pdf - https://datasheets.raspberrypi.org/pico/raspberry-pi-pico-c-sdk.pdf
-
-# Simpler - clearer 
-# ref : https://dernulleffekt.de/doku.php?id=raspberrypipico:pico_pio
-
 
 if TYPE_CHECKING:
     # defined functions are all methods of the (frozen) class PIOASMEmit:

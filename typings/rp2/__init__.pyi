@@ -12,10 +12,11 @@ for more information, and `pico-micropython-examples
 <https://github.com/raspberrypi/pico-micropython-examples/tree/master/pio>`_
 for example code.
 """
-from typing import Callable
+from typing import Callable, Union
+
 from _rp2 import *
 from _typeshed import Incomplete
-
+from machine import Pin
 _PROG_DATA: Incomplete
 _PROG_OFFSET_PIO0: Incomplete
 _PROG_OFFSET_PIO1: Incomplete
@@ -54,19 +55,25 @@ class PIOASMEmit:
     num_sideset: int
     def start_pass(self, pass_) -> None: ...
     def __getitem__(self, key): ...
-    def delay(self, delay): ...
-    def side(self, value): 
+    def delay(self, delay:int): ...
+    def side(self, value:int): 
         """\
-            This is a modifier which can be applied to any instruction, and is used to control side-set pin values.
+        This is a modifier which can be applied to any instruction, and is used to control side-set pin values.
         value: the value (bits) to output on the side-set pins
+
+        When an instruction has side 0 next to it, the corresponding output is set LOW, 
+        and when it has side 1 next to it, the corresponding output is set HIGH. 
+        There can be up to 5 side-set pins, in which case side N is interpreted as a binary number.
+
+        `side(0b00011)` sets the first and the second side-set pin HIGH, and the others LOW.
         """
         ...
     def wrap_target(self) -> None: ...
     def wrap(self) -> None: ...
-    def label(self, label) -> None: ...
+    def label(self, label:str) -> None: ...
     def word(self, instr, label: Incomplete | None = ...): ...
     def nop(self): ...
-    def jmp(self, cond, label: Incomplete | None = ...): ...
+    def jmp(self, cond, label: str | None = ...): ...
     def wait(self, polarity, src, index): ...
     def in_(self, src, data): ...
     def out(self, dest, data): ...
@@ -77,12 +84,12 @@ class PIOASMEmit:
     def set(self, dest, data): ...
 
 _pio_funcs: Incomplete
-
+x = 0b010
 def asm_pio(
     *,
-    out_init=None,
-    set_init=None,
-    sideset_init=None,
+    out_init:Union[Pin,List[Pin],None]=None,
+    set_init:Union[Pin,List[Pin],None]=None,
+    sideset_init:Union[Pin,List[Pin],None]=None,
     in_shiftdir=0,
     out_shiftdir=0,
     autopush=False,

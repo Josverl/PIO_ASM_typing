@@ -13,8 +13,10 @@ For more information on PIO assembly programming and the Raspberry Pi Pico Pytho
 For a simpler and clearer reference on PIO assembly, you can also visit: https://dernulleffekt.de/doku.php?id=raspberrypipico:pico_pio
 """
 from typing import Optional
-from typing_extensions import TYPE_CHECKING # type: ignore
+
 from _typeshed import Incomplete
+
+from typing_extensions import TYPE_CHECKING  # type: ignore
 
 if TYPE_CHECKING:
     # defined functions are all methods of the (frozen) class PIOASMEmit:
@@ -50,7 +52,7 @@ if TYPE_CHECKING:
     # constants for push, pull
     noblock = 0x01
 
-    block = 0x21
+    block = 0x21 
 
     iffull = 0x40
     ifempty = 0x40
@@ -58,7 +60,13 @@ if TYPE_CHECKING:
     # "noblock = see above
     # "block = see above
     clear = 0x40
-    rel = lambda x: x | 0x10
+    rel = lambda x: x | 0x10 
+    def rel(x:int)->int: 
+        """Relative IRQ number"""
+        return x | 0x10
+
+
+    
 
     #  missing
     # .define ( PUBLIC ) <symbol> <value> Define an integer symbol named <symbol> with the value <value> (see Section
@@ -87,7 +95,7 @@ if TYPE_CHECKING:
         ...
 
     def wrap_target() -> None:
-        """rp2.PIO assembly directive.
+        """rp2.PIO instruction.
 
         This directive specifies the instruction where
         execution continues due to program wrapping. This directive is invalid outside
@@ -97,7 +105,7 @@ if TYPE_CHECKING:
         ...
 
     def wrap() -> None:
-        """rp2.PIO assembly directive.
+        """rp2.PIO instruction.
 
         Placed after an instruction, this directive specifies the instruction after which,
         in normal control flow (i.e. jmp with false condition, or no jmp), the program
@@ -107,19 +115,23 @@ if TYPE_CHECKING:
         """
         ...
 
-    def label(label) -> None:
-        """rp2.PIO assembly directive.
+    def label(label:str) -> None:
+        """rp2.PIO instruction.
 
         Labels are of the form:
+
         <symbol>:
+
         or
+
         PUBLIC <symbol>:
+
         at the start of a line
         """
         ...
 
     def word(instr, label: Incomplete | None = ...) -> PIOASMEmit:
-        """rp2.PIO assembly directive.
+        """rp2.PIO instruction.
 
         Stores a raw 16-bit value as an instruction in the program. This directive is
         invalid outside of a program.
@@ -127,64 +139,71 @@ if TYPE_CHECKING:
         ...
 
     def nop() -> PIOASMEmit:
-        """NOP rp2040.PIO instruction
+        """NOP rp2.PIO instruction.
 
         Assembles to mov y, y. "No operation", has no particular side effect, but a useful vehicle for a side-set
         operation or an extra delay.
         """
         ...
 
-    def jmp(cond, label: Incomplete | None = ...) -> PIOASMEmit:
-        """JMP rp2040.PIO instruction
+    def jmp(condition, label: Incomplete | None = ...) -> PIOASMEmit:
+        """
+        JMP rp2.PIO instruction.
 
         Set program counter to Address if Condition is true, otherwise no operation.
         Delay cycles on a JMP always take effect, whether Condition is true or false, and they take place after Condition is
         evaluated and the program counter is updated.
-        Parameters:
-        * Condition:
-            000: (no condition): Always
-            001: !X: scratch X zero
-            010: X--: scratch X non-zero, prior to decrement
-            011: !Y: scratch Y zero
-            100: Y--: scratch Y non-zero, prior to decrement
-            101: X!=Y: scratch X not equal scratch Y
-            110: PIN: branch on input pin
-            111: !OSRE: output shift register not empty
 
-        * Address / label: Instruction address to jump to. In the instruction encoding this is an absolute address within the PIO
+        Parameters:
+
+        `condition`:
+        - `None` : (no condition): Always
+        - `not_x` : !X: scratch X zero
+        - `x_dec` : X--: scratch X non-zero, prior to decrement
+        - `not_y` : !Y: scratch Y zero
+        - `y_dec` : Y--: scratch Y non-zero, prior to decrement
+        - `x_not_y` : X!=Y: scratch X not equal scratch Y
+        - `pin` : PIN: branch on input pin
+        - `not_osre` : !OSRE: output shift register not empty
+
+        `label`: Instruction address to jump to. In the instruction encoding, this is an absolute address within the PIO
         instruction memory.
 
-        JMP PIN branches on the GPIO selected by EXECCTRL_JMP_PIN, a configuration field which selects one out of the maximum
+        `JMP PIN` branches on the GPIO selected by EXECCTRL_JMP_PIN, a configuration field which selects one out of the maximum
         of 32 GPIO inputs visible to a state machine, independently of the state machine’s other input mapping. The branch is
         taken if the GPIO is high.
-        !OSRE compares the bits shifted out since the last PULL with the shift count threshold configured by SHIFTCTRL_PULL_THRESH.
+
+        `!OSRE` compares the bits shifted out since the last PULL with the shift count threshold configured by SHIFTCTRL_PULL_THRESH.
         This is the same threshold used by autopull.
-        JMP X-- and JMP Y-- always decrement scratch register X or Y, respectively. The decrement is not conditional on the
+
+        `JMP X--` and `JMP Y--` always decrement scratch register X or Y, respectively. The decrement is not conditional on the
         current value of the scratch register. The branch is conditioned on the initial value of the register, i.e. before the
-        decrement took place: if the register is initially nonzero, the branch is taken
+        decrement took place: if the register is initially nonzero, the branch is taken.
         """
         ...
 
-    def wait(polarity, src, index) -> PIOASMEmit:
-        """WAIT rp2040.PIO instruction
+    def wait(polarity:int, src:int, index:int, /) -> PIOASMEmit:
+        """WAIT rp2.PIO instruction.
 
         Stall until some condition is met.
         Like all stalling instructions, delay cycles begin after the instruction completes. That is, if any delay cycles are present,
         they do not begin counting until after the wait condition is met.
+
         Parameters:
-        * Polarity:
-            1: wait for a 1.
-            0: wait for a 0.
-            * Source: what to wait on. Values are:
-            00: GPIO: System GPIO input selected by Index. This is an absolute GPIO index, and is not affected by the state
-            machine’s input IO mapping.
-            01: PIN: Input pin selected by Index. This state machine’s input IO mapping is applied first, and then Index
+
+            Polarity:
+                1: wait for a 1.
+                0: wait for a 0.
+
+            Source: what to wait on. Values are:
+                00: GPIO: System GPIO input selected by Index. This is an absolute GPIO index, and is not affected by the state machine’s input IO mapping.
+                01: PIN: Input pin selected by Index. This state machine’s input IO mapping is applied first, and then Index
             selects which of the mapped bits to wait on. In other words, the pin is selected by adding Index to the
             PINCTRL_IN_BASE configuration, modulo 32.
-            10: IRQ: PIO IRQ flag selected by Index
-            11: Reserved
+                10: IRQ: PIO IRQ flag selected by Index
+                11: Reserved
 
-        * Index: which pin or bit to check.
+            Index: which pin or bit to check.
 
         WAIT x IRQ behaves slightly differently from other WAIT sources:
         * If Polarity is 1, the selected IRQ flag is cleared by the state machine upon the wait condition being met.
@@ -199,7 +218,7 @@ if TYPE_CHECKING:
         ...
 
     def in_(src, data) -> PIOASMEmit:
-        """IN rp2040.PIO instruction
+        """IN rp2.PIO instruction.
 
         Shift Bit count bits from Source into the Input Shift Register (ISR).
         Shift direction is configured for each state machine by SHIFTCTRL_IN_SHIFTDIR.
@@ -232,7 +251,7 @@ if TYPE_CHECKING:
         ...
 
     def out(destination: int, bit_count: int) -> PIOASMEmit:
-        """OUT rp2040.PIO instruction
+        """OUT rp2.PIO instruction.
 
         Shift Bit count bits out of the Output Shift Register (OSR), and write those bits to Destination.
         Additionally, increase the output shift count by Bit count, saturating at 32.
@@ -270,7 +289,7 @@ if TYPE_CHECKING:
         ...
 
     def push(value: int = ..., value2: int = ...) -> PIOASMEmit:
-        """PUSH rp2040.PIO instruction.
+        """PUSH rp2.PIO instruction..
 
         Push the contents of the ISR into the RX FIFO, as a single 32-bit word. Clear ISR to all-zeroes.
         * IfFull: If 1, do nothing unless the total input shift count has reached its threshold, SHIFTCTRL_PUSH_THRESH (the same
@@ -289,7 +308,7 @@ if TYPE_CHECKING:
         ...
 
     def pull(block: int = block, timeout: int = 0) -> PIOASMEmit:
-        """PULL rp2040.PIO instruction.
+        """PULL rp2.PIO instruction..
 
         Load a 32-bit word from the TX FIFO into the OSR.
         * IfEmpty: If 1, do nothing unless the total output shift count has reached its threshold, SHIFTCTRL_PULL_THRESH (the
@@ -315,7 +334,7 @@ if TYPE_CHECKING:
         ...
 
     def mov(dest, src, operation:Optional[int]=None) -> PIOASMEmit:
-        """MOV rp2040.PIO instruction.
+        """MOV rp2.PIO instruction..
 
         Copy data from Source to Destination.
         
@@ -381,7 +400,7 @@ if TYPE_CHECKING:
         ...
 
     def set(destination, data) -> PIOASMEmit:
-        """SET rp2040.PIO instruction.
+        """SET rp2.PIO instruction..
 
         Write immediate value Data to Destination.
 

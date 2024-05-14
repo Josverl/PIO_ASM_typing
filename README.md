@@ -32,6 +32,11 @@ This allows the typechecking to run without errors, but the `if TYPE_CHECKING:` 
 
 For the current implementation see the [`typings/rp2/rp2.pyi`](typings/rp2/rp2.pyi) file. 
 
+## Try it out in 2 minutes
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/Josverl/PIO_ASM_typing?quickstart=1)
+
+
 ## How to use for your own project
 I have not packaged or published this, so for now you will will need to copy some files into your `typings` folder.
 

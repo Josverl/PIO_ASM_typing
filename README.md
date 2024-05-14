@@ -32,6 +32,20 @@ This allows the typechecking to run without errors, but the `if TYPE_CHECKING:` 
 
 For the current implementation see the [`typings/rp2/rp2.pyi`](typings/rp2/rp2.pyi) file. 
 
+## How to use for your own project
+I have not packaged or published this, so for now you will will need to copy some files into your `typings` folder.
+
+**copy to  `typings/rp2`:**
+-  https://github.com/Josverl/PIO_ASM_typing/tree/main/typings/rp2
+
+**include in your source ( and also sync to the rp2040 board):**
+- https://github.com/Josverl/PIO_ASM_typing/blob/main/src/typing_extensions.py
+
+## Feedback, improvements, corrections.
+
+I assembled this from different sources, approx 50% automated and a lot of manual edits and additions.
+So there will be errors, If you find any please raise an issue an error or a snippet to improve, or better yet share the update in a PR.
+
 # Open items 
 
  - [ ] Does the manner and name for importing the type hints make sense?

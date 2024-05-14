@@ -10,21 +10,23 @@ from typing_extensions import TYPE_CHECKING  # type: ignore
 if TYPE_CHECKING:
     from rp2.asm_pio import *
 # -----------------------------------------------
+
+#fmt: off
 @rp2.asm_pio(set_init=rp2.PIO.OUT_LOW)
 def blink_1hz():
     # Cycles: 1 + 1 + 6 + 32 * (30 + 1) = 1000
     irq(rel(0))
     set(pins, 1)
-    set(x, 31) [5]
+    set(x, 31)                  [5]
     label("delay_high")
     nop() [29]
     jmp(x_dec, "delay_high")
 
     # Cycles: 1 + 7 + 32 * (30 + 1) = 1000
     set(pins, 0)
-    set(x, 31) [6]
+    set(x, 31)                  [6]
     label("delay_low")
-    nop() [29]
+    nop()                       [29]
     jmp(x_dec, "delay_low")
 
 
@@ -37,6 +39,7 @@ def wait_pin_low():
     wait(1, pin, 0)
 
     wrap()
+#fmt: on
 
 
 # Example of using PIO for PWM, and fading the brightness of an LED
@@ -45,7 +48,7 @@ from machine import Pin
 from rp2 import PIO, StateMachine, asm_pio
 from time import sleep
 
-
+#fmt: off
 @asm_pio(sideset_init=PIO.OUT_LOW)
 def pwm_prog():
     pull(noblock) .side(0)
@@ -56,6 +59,7 @@ def pwm_prog():
     nop()         .side(1)
     label("skip")
     jmp(y_dec, "pwmloop")
+#fmt: on
 
 
 class PIOPWM:

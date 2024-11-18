@@ -15,10 +15,14 @@ to to this add the following lines to the top of the file with the PIO assembler
 ```python
 # -----------------------------------------------
 # add type hints for the rp2.PIO Instructions
-from typing_extensions import TYPE_CHECKING # type: ignore
+try: 
+    from typing_extensions import TYPE_CHECKING # type: ignore
+except ImportError:
+    TYPE_CHECKING = False
 if TYPE_CHECKING:
     from rp2.asm_pio import *
 # -----------------------------------------------
+
 ```
 
 To allow both typechecking and running the code on the RP2, then you will also need th add an additional file `typing_extensions.py` to your scripts  or lib with the following content:

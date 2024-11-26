@@ -2,6 +2,9 @@
 
 This is a PoC for adding type hints for the PIO assembler. It is not a full implementation, but it shows the idea.
 
+This concept is being integrated into the MicroPython-stubs via the Micropython-reference stubs
+
+
 the goal is to allow have the simular benefits in code PIO code , as there is for MicroPython code.
 
 | Regular | With pio_asm_types |
